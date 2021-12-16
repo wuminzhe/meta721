@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_14_060623) do
-
-  create_table "test", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "fullid", limit: 11
-  end
+ActiveRecord::Schema.define(version: 2021_12_16_101524) do
 
   create_table "token_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "address"
@@ -23,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_12_14_060623) do
     t.boolean "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "blacklisted"
     t.index ["address"], name: "index_token_contracts_on_address", unique: true
   end
 
@@ -35,6 +32,9 @@ ActiveRecord::Schema.define(version: 2021_12_14_060623) do
     t.integer "token_contract_id"
     t.string "token_contract_address"
     t.string "token_id"
+    t.text "metadata"
+    t.index ["token_contract_address", "token_id"], name: "index_tokens_on_token_contract_address_and_token_id"
+    t.index ["token_contract_id"], name: "index_tokens_on_token_contract_id"
   end
 
 end
