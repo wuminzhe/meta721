@@ -3,10 +3,16 @@ namespace :fetch_tokens do
   desc "Fetch tokens from thegraph"
   task fetch: :environment do
     while true
-      last_token = Token.order(mint_time: :desc).first
+      # last_token = Token.order(mint_time: :desc).first
+
+      sql = "select mint_time from tokens where id=(select max(id) as id from tokens)"
+      records_array = ActiveRecord::Base.connection.execute(sql)
+      record = records_array.first
+      last_mint_time = record.nil? ? nil : record[0]
+      puts last_mint_time
       
       result = 
-        if last_token.nil?
+        if last_mint_time.nil?
           puts "Init query tokens ..."
           TGAPI::Client.query(InitTokensQuery, 
                               variables: {
@@ -18,7 +24,7 @@ namespace :fetch_tokens do
           TGAPI::Client.query(TokensQuery, 
                               variables: {
                                 first: TOKENS_QUERY_BATCH_SIZE, 
-                                last_mint_time: last_token.mint_time
+                                last_mint_time: last_mint_time
                               }
                              )
         end

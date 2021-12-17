@@ -11,6 +11,7 @@
 #  token_contract_id      :integer
 #  token_contract_address :string(255)
 #  token_id               :string(255)
+#  metadata               :text(65535)
 #
 class Token < ApplicationRecord
   belongs_to :token_contract, optional: true
