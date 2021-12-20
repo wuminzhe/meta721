@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: club721_production
-  username: club721
+  username: root
   password: <%= ENV['CLUB721_DATABASE_PASSWORD'] %>
