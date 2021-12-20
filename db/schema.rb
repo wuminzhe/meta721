@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_101524) do
+ActiveRecord::Schema.define(version: 2021_12_20_030640) do
+
+  create_table "last_token_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "token_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "address"
@@ -24,17 +30,13 @@ ActiveRecord::Schema.define(version: 2021_12_16_101524) do
   end
 
   create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.text "token_uri"
-    t.string "owner_address"
+    t.text "token_uri", limit: 16777215
     t.integer "mint_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "token_contract_id"
     t.string "token_contract_address"
     t.string "token_id"
-    t.text "metadata"
-    t.index ["token_contract_address", "token_id"], name: "index_tokens_on_token_contract_address_and_token_id"
-    t.index ["token_contract_id"], name: "index_tokens_on_token_contract_id"
   end
 
 end
