@@ -37,7 +37,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'graphql-client'
-gem 'charlock_holmes'
 gem 'faraday'
 
 group :development, :test do
