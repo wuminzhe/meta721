@@ -1,0 +1,2 @@
+class TokenContractsInfo < ApplicationRecord
+end

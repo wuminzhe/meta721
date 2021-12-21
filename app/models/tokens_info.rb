@@ -1,0 +1,2 @@
+class TokensInfo < ApplicationRecord
+end
